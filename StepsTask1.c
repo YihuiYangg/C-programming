@@ -10,7 +10,7 @@ typedef struct {
 } FITNESS_DATA;
 
 // Define any additional variables here
-
+# define max 100
 
 
 // This is your helper function. Do not change it in any way.
@@ -43,6 +43,26 @@ void tokeniseRecord(const char *input, const char *delimiter,
 
 // Complete the main function
 int main() {
+    FILE *fptr;
+    fptr=fopen("FitnessData_2023.csv","r");
 
+    FITNESS_DATA records[max];
+    int numRecords=0;
+
+    while (fscanf(fptr,"%11[^,],%6[^,],%d\n",records[numRecords].date, records[numRecords].time, &records[numRecords].steps)==3){
+        numRecords=numRecords+1;
+    }
+
+    
+    printf("Number of records in file:%d\n",numRecords);
+
+    int i;
+    for (i=0;i<3;i++){
+        if (strcmp(records[i].time, "07:30") == 0 || strcmp(records[i].time, "07:45") == 0 || strcmp(records[i].time, "08:00") == 0){
+            printf("%s/%s/%d\n", records[i].date, records[i].time, records[i].steps);
+        }
+    }
+    fclose(fptr);
+    return 0;
 
 }
