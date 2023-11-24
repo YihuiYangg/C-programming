@@ -3,6 +3,7 @@
 #include <string.h>
 #include "FitnessDataStruct.h"
 
+
 // Struct moved to header file
 
 // Define any additional variables here
@@ -36,21 +37,21 @@ void tokeniseRecord(const char *input, const char *delimiter,
     free(inputCopy);
 
                     }
-
-
+                
 
 
 // Complete the main function
 int main() {
-    reading Records[100];
-    char line[buffer_size];
-    char filename[buffer_size];
+    FITNESS_DATA RECORDS[100];
+    char line[100];
+    char filename[100];
 
-    fgets(line,buffer_size,stdin);
+    fgets(line,100,stdin);
     sscanf(line,"%s",filename);
 
     int counter=0;
     float mean=0;
+    char choice;
 
     while(1){
         
@@ -66,11 +67,12 @@ int main() {
 
         choice = getchar();
         while(getchar()!= '\n');
+        FILE *input = fopen(filename,"r");
 
         switch(choice){
             case 'A':
             case 'a':
-                FILE *input = fopen(filename,"r");
+                
                 if(!input){
                     printf("Error: Could not find or open the file.\n");
                     return 1;}
@@ -79,14 +81,15 @@ int main() {
                 }
                 break;
 
-            while(fgets(line,buffer_size,input))
-            {
-                tokeniseRecord(line,",",Records[counter].date,Records[counter].time,Records[counter].steps);
-                counter++
-            }
+            
 
             case 'B':
             case 'b':
+                while(fgets(line,100,input))
+            {
+                tokeniseRecord(line,",",RECORDS[counter].date,RECORDS[counter].time,RECORDS[counter].steps);
+                counter++;
+            }
                 printf("Total records:&d\n",counter);
                 break;
 
@@ -102,12 +105,12 @@ int main() {
 
             case 'E':
             case 'e':
-            for(i=0,i<counter,i++){
-                mean=mean+Records[i].steps;
+                for(i=0,i < counter,i++;){
+                    mean=mean+RECORDS[i].steps;
             }
-            mean /= counter;
-            printf("Mean step count: %.2f\n,mean");
-            break:
+                mean /= counter;
+                printf("Mean step count: %f\n,mean");
+                break;
 
             case 'F':
             case 'f':
